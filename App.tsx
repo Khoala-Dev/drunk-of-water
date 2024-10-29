@@ -6,7 +6,8 @@ import {
   Text,
   useColorScheme,
   TextInput,
-  Button
+  Pressable,
+  View,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -19,19 +20,18 @@ const Target = (): React.JSX.Element => {
   const [target, setTarget] = useState('');
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Defina sua meta diária de consumo de água</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Text"
-        onChangeText={newText => setTarget(newText)}
-        defaultValue={target}
-      />
-      <Button
-        onPress={() => {}}
-        title="Começar"
-        color="#000"
-        accessibilityLabel="Começar a sua meta de água diária de água"
-      />
+      <View style={styles.generalView}>
+        <Text style={styles.text}>Defina sua meta diária de consumo de água</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Text"
+          onChangeText={newText => setTarget(newText)}
+          defaultValue={target}
+        />
+        <Pressable onPress={() => {}}>
+          <Text style={styles.button}>Começar</Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
@@ -40,13 +40,12 @@ const Progress = (): React.JSX.Element => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Progresso</Text>
-      <Button
-        onPress={() => {}}
-        title="Adicionar"
-        color="#000"
-        accessibilityLabel="Adicionar um copo de água"
-      />
+      <View style={styles.generalView}>
+        <Text style={styles.text}>Progresso</Text>
+        <Pressable onPress={() => {}}>
+        <Text style={styles.button}>Adicionar</Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
@@ -81,7 +80,12 @@ export default function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: '#D2FEFF',
+  },
+  generalView: {
+    gap: 20,
+    padding: 20,
   },
   text: {
     fontSize: 25,
@@ -89,9 +93,26 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   input: {
-    height: 40,
+    height: 60,
     borderStyle: 'solid',
     borderColor: '#000',
     borderWidth: 1,
+    backgroundColor: '#FFF',
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 25,
+  },
+  button: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 25,
+    height: 60,
+    backgroundColor: '#000',
+    color: '#FFF',
+    lineHeight: 60,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignSelf: 'flex-start',
   },
 });
+
