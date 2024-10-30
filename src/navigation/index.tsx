@@ -8,6 +8,8 @@ import accessibleText from '../accessibility/texts';
 import { StyleSheet } from 'react-native';
 import TabBarIcon from '../components/atoms/TabBarIcon';
 import { ios } from '../utils/os';
+import { useAppTheme } from '../hook';
+import theme from '../theme';
 
 type TabBarIconProps = {
   focused: boolean;
@@ -15,39 +17,45 @@ type TabBarIconProps = {
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
-const Tabs = (): React.JSX.Element => (
-  <NavigationContainer>
-    <Tab.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
-        tabBarStyle: styles.tabBarStyle,
-      }}
-    >
-      <Tab.Screen
-        name="Target"
-        component={Target}
-        options={{
-          tabBarAccessibilityLabel: `${accessibleText.target.tabBar}`,
-          tabBarIcon: ({ focused }: TabBarIconProps) => (
-            <TabBarIcon focused={focused} icon="compass" label="Meta" />
-          ),
+const Tabs = (): React.JSX.Element => {
+  const { osTheme } = useAppTheme();
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarStyle: [
+            styles.tabBarStyle,
+            { backgroundColor: osTheme === 'dark' ? theme.black : theme.white },
+          ],
         }}
-      />
-      <Tab.Screen
-        name="Progress"
-        component={Progress}
-        options={{
-          tabBarLabel: 'Progresso',
-          tabBarAccessibilityLabel: `${accessibleText.progress.tabBar}`,
-          tabBarIcon: ({ focused }: TabBarIconProps) => (
-            <TabBarIcon focused={focused} icon="droplet" label="Progresso" />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  </NavigationContainer>
-);
+      >
+        <Tab.Screen
+          name="Target"
+          component={Target}
+          options={{
+            tabBarAccessibilityLabel: `${accessibleText.target.tabBar}`,
+            tabBarIcon: ({ focused }: TabBarIconProps) => (
+              <TabBarIcon focused={focused} icon="compass" label="Meta" osMode={osTheme} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Progress"
+          component={Progress}
+          options={{
+            tabBarLabel: 'Progresso',
+            tabBarAccessibilityLabel: `${accessibleText.progress.tabBar}`,
+            tabBarIcon: ({ focused }: TabBarIconProps) => (
+              <TabBarIcon focused={focused} icon="droplet" label="Progresso" osMode={osTheme} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
 
 const styles = StyleSheet.create({
   tabBarStyle: {

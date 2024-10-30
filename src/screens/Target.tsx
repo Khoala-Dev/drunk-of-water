@@ -5,13 +5,17 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import accessibleText from '../accessibility/texts';
 import { ios } from '../utils/os';
 import Button from '../components/atoms/Button';
+import { useAppTheme } from '../hook';
+import theme from '../theme';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
+  const { osTheme } = useAppTheme();
+
   const [target, setTarget] = useState('');
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme[osTheme].primary }]}>
       <View style={styles.generalView}>
-        <Text style={styles.text}>Defina sua meta diária de consumo de água</Text>
+        <Text style={[styles.text, { color: theme[osTheme].text }]}>Defina sua meta diária de consumo de água</Text>
         <View style={styles.inputBox}>
           <TextInput
             accessibilityLabel={accessibleText.target.input}
@@ -28,6 +32,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
           onPress={() => navigation.navigate('Progress')}
           label="Começar"
           disabled={target.length < 3}
+          osMode={osTheme}
         />
       </View>
     </SafeAreaView>
@@ -37,7 +42,6 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D1FFFA',
     justifyContent: 'flex-end',
     paddingBottom: ios ? 80 : 100,
   },
@@ -55,10 +59,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 60,
     borderStyle: 'solid',
-    borderColor: '#333',
     borderWidth: 1,
     backgroundColor: '#FFF',
     paddingHorizontal: 20,
+    borderRadius: 5,
   },
   input: {
     fontSize: 25,
@@ -70,17 +74,6 @@ const styles = StyleSheet.create({
     color: '#333',
     paddingHorizontal: 5,
     textTransform: 'uppercase',
-  },
-  button: {
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    fontSize: 25,
-    height: 60,
-    backgroundColor: '#00595C',
-    color: '#FFDDAE',
-    lineHeight: 60,
-    paddingHorizontal: 20,
-    alignSelf: 'flex-start',
   },
 });
 
