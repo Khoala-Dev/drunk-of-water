@@ -7,7 +7,7 @@ import { Progress, Target } from '../screens';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
-const Navigation = (): React.JSX.Element => (
+const Tabs = (): React.JSX.Element => (
   <NavigationContainer>
     <Tab.Navigator
       screenOptions={{
@@ -37,4 +37,4 @@ const Navigation = (): React.JSX.Element => (
   </NavigationContainer>
 );
 
-export default Navigation;
+export default Tabs;

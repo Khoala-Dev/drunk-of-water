@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavigationProps } from '../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import accessibleText from '../accessibility/texts';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
   const [target, setTarget] = useState('');
@@ -11,6 +12,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
         <Text style={styles.text}>Defina sua meta diária de consumo de água</Text>
         <View style={styles.inputBox}>
           <TextInput
+            accessibilityLabel={accessibleText.TARGET_INPUT}
             style={styles.input}
             placeholder="Digite sua meta em ML"
             onChangeText={newText => setTarget(newText)}
@@ -19,7 +21,12 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
           />
           <Text style={styles.sufix}>{target.length ? 'ml' : ''}</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate('Progress')} disabled={target.length < 3}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={accessibleText.TARGET_PRESSABLE_LABEL}
+          onPress={() => navigation.navigate('Progress')}
+          disabled={target.length < 3}
+        >
           <Text style={styles.button}>Começar</Text>
         </Pressable>
       </View>
