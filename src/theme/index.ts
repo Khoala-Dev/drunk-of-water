@@ -1,23 +1,32 @@
 import { Theme } from '../types';
 
+const colors = {
+  'light-blue': '#D1FFFA',
+  'dark-blue': '#006156',
+  'white': '#FFFFFF',
+  'black': '#333333',
+  'light-grey': '#595959',
+  'dark-grey': '#C2C2C2',
+}
+
 const theme: Theme = {
   light: {
-    primary: '#D1FFFA',
-    secondary: '#006156',
-    text: '#333333',
-    grey: '#595959',
-    backgroundTab: '#FFFFFF',
-    buttonText: '#FFFFFF',
-    backgroundButton: '#333333',
+    primary: colors['light-blue'],
+    secondary: colors['dark-blue'],
+    text: colors.black,
+    grey: colors['dark-grey'],
+    backgroundTab: colors.white,
+    buttonText: colors.white,
+    backgroundButton: colors.black,
   },
   dark: {
-    primary: '#006156',
-    secondary: '#D1FFFA',
-    text: '#FFFFFF',
-    grey: '#C2C2C2',
-    backgroundTab: '#333333',
-    buttonText: '#333333',
-    backgroundButton: '#FFFFFF',
+    primary: colors['dark-blue'],
+    secondary: colors['light-blue'],
+    text: colors.white,
+    grey: colors['light-grey'],
+    backgroundTab: colors.black,
+    buttonText: colors.black,
+    backgroundButton: colors.white,
   },
 };
 
