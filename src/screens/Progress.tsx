@@ -1,13 +1,18 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import accessibleText from '../accessibility/texts';
+
 
 const Progress = (): React.JSX.Element => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.generalView}>
         <Text style={styles.text}>Progresso</Text>
-        <Pressable onPress={() => {}}>
+        <Pressable
+          onPress={() => {}}
+          accessibilityLabel={accessibleText.progress.pressableLabel}
+        >
           <Text style={styles.button}>Adicionar</Text>
         </Pressable>
       </View>

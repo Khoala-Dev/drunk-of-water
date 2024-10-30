@@ -12,7 +12,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
         <Text style={styles.text}>Defina sua meta diária de consumo de água</Text>
         <View style={styles.inputBox}>
           <TextInput
-            accessibilityLabel={accessibleText.TARGET_INPUT}
+            accessibilityLabel={accessibleText.target.input}
             style={styles.input}
             placeholder="Digite sua meta em ML"
             onChangeText={newText => setTarget(newText)}
@@ -23,7 +23,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
         </View>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={accessibleText.TARGET_PRESSABLE_LABEL}
+          accessibilityLabel={accessibleText.target.pressableLabel}
           onPress={() => navigation.navigate('Progress')}
           disabled={target.length < 3}
         >
