@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import accessibleText from '../accessibility/texts';
+import { ios } from '../utils/os';
 
 
 const Progress = (): React.JSX.Element => {
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     backgroundColor: '#D2FEFF',
+    paddingBottom: ios ? 80 : 100,
   },
   generalView: {
     gap: 20,

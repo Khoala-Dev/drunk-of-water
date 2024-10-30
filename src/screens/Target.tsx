@@ -3,6 +3,7 @@ import { NavigationProps } from '../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import accessibleText from '../accessibility/texts';
+import { ios } from '../utils/os';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
   const [target, setTarget] = useState('');
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     backgroundColor: '#D2FEFF',
+    paddingBottom: ios ? 80 : 100,
   },
   generalView: {
     gap: 20,
