@@ -1,6 +1,20 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { ColorValue } from 'react-native';
 
-export type ThemeKeys = 'light' | 'dark';
+export interface ThemeColors {
+  primary: ColorValue;
+  secondary: ColorValue;
+  text: ColorValue;
+  grey: ColorValue;
+  backgroundTab: ColorValue;
+  buttonText: ColorValue;
+  backgroundButton: ColorValue;
+}
+
+export interface Theme {
+  light: ThemeColors;
+  dark: ThemeColors;
+}
 
 export type RootTabParamList = {
   Target: undefined;

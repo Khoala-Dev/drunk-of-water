@@ -1,49 +1,57 @@
 import React, { useState } from 'react';
-import { NavigationProps } from '../types';
+import { NavigationProps, ThemeColors } from '../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import accessibleText from '../accessibility/texts';
 import { ios } from '../utils/os';
 import Button from '../components/atoms/Button';
-import { useAppTheme } from '../hook';
-import theme from '../theme';
+import useTheme from '../hooks/useTheme';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
-  const { osTheme } = useAppTheme();
+  const { theme } = useTheme();
+  const {
+    container,
+    generalView,
+    text,
+    inputBox,
+    input,
+    sufix,
+  } = styles(theme);
 
   const [target, setTarget] = useState('');
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme[osTheme].primary }]}>
-      <View style={styles.generalView}>
-        <Text style={[styles.text, { color: theme[osTheme].text }]}>Defina sua meta diária de consumo de água</Text>
-        <View style={styles.inputBox}>
+    <SafeAreaView style={container}>
+      <View style={generalView}>
+        <Text style={text}>Defina sua meta diária de consumo de água</Text>
+        <View style={inputBox}>
           <TextInput
             accessibilityLabel={accessibleText.target.input}
-            style={styles.input}
+            style={input}
             placeholder="Digite sua meta em ML"
             onChangeText={newText => setTarget(newText)}
             defaultValue={target}
             keyboardType="numeric"
           />
-          <Text style={styles.sufix}>{target.length ? 'ml' : ''}</Text>
+          <Text style={sufix}>{target.length ? 'ml' : ''}</Text>
         </View>
         <Button
           accessibilityText={accessibleText.target.pressableLabel}
           onPress={() => navigation.navigate('Progress')}
           label="Começar"
           disabled={target.length < 3}
-          osMode={osTheme}
         />
       </View>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
     paddingBottom: ios ? 80 : 100,
+    backgroundColor: theme.primary,
   },
   generalView: {
     gap: 20,
@@ -53,6 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'regular',
     textAlign: 'left',
+    color: theme.text,
   },
   inputBox: {
     flexDirection: 'row',

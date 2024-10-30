@@ -2,33 +2,30 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RootTabParamList } from '../types';
+import { RootTabParamList, ThemeColors } from '../types';
 import { Progress, Target } from '../screens';
 import accessibleText from '../accessibility/texts';
-import { StyleSheet } from 'react-native';
 import TabBarIcon from '../components/atoms/TabBarIcon';
 import { ios } from '../utils/os';
-import { useAppTheme } from '../hook';
-import theme from '../theme';
+import { StyleSheet } from 'react-native';
+import useTheme from '../hooks/useTheme';
 
-type TabBarIconProps = {
+interface TabBarIconProps {
   focused: boolean;
 }
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
-
 const Tabs = (): React.JSX.Element => {
-  const { osTheme } = useAppTheme();
+  const { theme } = useTheme();
+  const { tabBarStyle } = styles(theme);
+  const Tab = createBottomTabNavigator<RootTabParamList>();
+
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
           tabBarShowLabel: false,
           headerShown: false,
-          tabBarStyle: [
-            styles.tabBarStyle,
-            { backgroundColor: osTheme === 'dark' ? theme.black : theme.white },
-          ],
+          tabBarStyle: tabBarStyle,
         }}
       >
         <Tab.Screen
@@ -37,7 +34,7 @@ const Tabs = (): React.JSX.Element => {
           options={{
             tabBarAccessibilityLabel: `${accessibleText.target.tabBar}`,
             tabBarIcon: ({ focused }: TabBarIconProps) => (
-              <TabBarIcon focused={focused} icon="compass" label="Meta" osMode={osTheme} />
+              <TabBarIcon focused={focused} icon="compass" label="Meta" />
             ),
           }}
         />
@@ -48,7 +45,7 @@ const Tabs = (): React.JSX.Element => {
             tabBarLabel: 'Progresso',
             tabBarAccessibilityLabel: `${accessibleText.progress.tabBar}`,
             tabBarIcon: ({ focused }: TabBarIconProps) => (
-              <TabBarIcon focused={focused} icon="droplet" label="Progresso" osMode={osTheme} />
+              <TabBarIcon focused={focused} icon="droplet" label="Progresso" />
             ),
           }}
         />
@@ -57,16 +54,17 @@ const Tabs = (): React.JSX.Element => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: ThemeColors) => StyleSheet.create({
   tabBarStyle: {
     position: 'absolute',
     bottom:  ios ? 30 : 20,
     left: 20,
     right: 20,
-    elevation: 0, // isso tira o box-shadow default do Android
+    elevation: 0,
     borderRadius: 15,
     height: 70,
     paddingBottom: 0,
+    backgroundColor: theme.backgroundTab,
   },
 });
 
