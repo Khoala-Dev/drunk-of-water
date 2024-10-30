@@ -8,7 +8,7 @@ export default function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : '#D2FEFF',
+    backgroundColor: isDarkMode ? Colors.darker : '#D1FFFA',
   };
 
   return (

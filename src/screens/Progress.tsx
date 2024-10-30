@@ -1,8 +1,9 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import accessibleText from '../accessibility/texts';
+import { StyleSheet, Text, View } from 'react-native';
 import { ios } from '../utils/os';
+import Button from '../components/atoms/Button';
+import accessibleText from '../accessibility/texts';
 
 
 const Progress = (): React.JSX.Element => {
@@ -10,12 +11,11 @@ const Progress = (): React.JSX.Element => {
     <SafeAreaView style={styles.container}>
       <View style={styles.generalView}>
         <Text style={styles.text}>Progresso</Text>
-        <Pressable
-          onPress={() => {}}
-          accessibilityLabel={accessibleText.progress.pressableLabel}
-        >
-          <Text style={styles.button}>Adicionar</Text>
-        </Pressable>
+        <Button
+          accessibilityText={accessibleText.progress.pressableLabel}
+          onPress={() => { }}
+          label="Adicionar"
+        />
       </View>
     </SafeAreaView>
   );
@@ -24,8 +24,8 @@ const Progress = (): React.JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#D1FFFA',
     justifyContent: 'flex-end',
-    backgroundColor: '#D2FEFF',
     paddingBottom: ios ? 80 : 100,
   },
   generalView: {
@@ -36,17 +36,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'regular',
     textAlign: 'left',
-  },
-  button: {
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    fontSize: 25,
-    height: 60,
-    backgroundColor: '#000',
-    color: '#FFF',
-    lineHeight: 60,
-    paddingHorizontal: 20,
-    alignSelf: 'flex-start',
   },
 });
 

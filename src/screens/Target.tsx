@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { NavigationProps } from '../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import accessibleText from '../accessibility/texts';
 import { ios } from '../utils/os';
+import Button from '../components/atoms/Button';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
   const [target, setTarget] = useState('');
@@ -22,14 +23,12 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
           />
           <Text style={styles.sufix}>{target.length ? 'ml' : ''}</Text>
         </View>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={accessibleText.target.pressableLabel}
+        <Button
+          accessibilityText={accessibleText.target.pressableLabel}
           onPress={() => navigation.navigate('Progress')}
+          label="Começar"
           disabled={target.length < 3}
-        >
-          <Text style={styles.button}>Começar</Text>
-        </Pressable>
+        />
       </View>
     </SafeAreaView>
   );
@@ -38,8 +37,8 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#D1FFFA',
     justifyContent: 'flex-end',
-    backgroundColor: '#D2FEFF',
     paddingBottom: ios ? 80 : 100,
   },
   generalView: {
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 60,
     borderStyle: 'solid',
-    borderColor: '#000',
+    borderColor: '#333',
     borderWidth: 1,
     backgroundColor: '#FFF',
     paddingHorizontal: 20,
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
   sufix: {
     fontSize: 25,
     fontWeight: 'regular',
-    color: '#000',
+    color: '#333',
     paddingHorizontal: 5,
     textTransform: 'uppercase',
   },
@@ -77,8 +76,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     height: 60,
-    backgroundColor: '#000',
-    color: '#FFF',
+    backgroundColor: '#00595C',
+    color: '#FFDDAE',
     lineHeight: 60,
     paddingHorizontal: 20,
     alignSelf: 'flex-start',
