@@ -12,7 +12,7 @@ type TabBarIconProps = {
 
 const TabBarIcon: React.FC<TabBarIconProps> = ({ focused, icon, label }) => {
   const { theme } = useTheme();
-  const { container, focus, blur } = styles(theme);
+  const { container, focus, text } = styles(theme);
 
   return (
     <View style={container}>
@@ -21,7 +21,7 @@ const TabBarIcon: React.FC<TabBarIconProps> = ({ focused, icon, label }) => {
         size={focused ? 28 : 26}
         color={focused ? theme.secondary : theme.grey}
       />
-      <Text style={focused ? focus : blur}>
+      <Text style={[text, focused && focus]}>
         {label}
       </Text>
     </View>
@@ -38,8 +38,10 @@ const styles = (theme: ThemeColors) => StyleSheet.create({
     fontWeight: 'bold',
     color: theme.secondary,
   },
-  blur: {
+  text: {
     color: theme.grey,
+    textTransform: 'uppercase',
+    fontSize: 12,
   },
 });
 

@@ -35,7 +35,6 @@ const Button = ({
 const styles = (theme: ThemeColors) => StyleSheet.create({
   button: {
     height: 60,
-    paddingHorizontal: 20,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -43,9 +42,8 @@ const styles = (theme: ThemeColors) => StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 26,
     textTransform: 'uppercase',
-    lineHeight: 60,
     color: theme.buttonText,
   },
 });
