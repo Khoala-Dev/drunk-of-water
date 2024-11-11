@@ -7,6 +7,7 @@ const colors = {
   'black': '#333333',
   'dark-grey': '#595959',
   'light-grey': '#C2C2C2',
+  'water': '#0BD9F4',
 }
 
 const theme: Theme = {
@@ -18,6 +19,8 @@ const theme: Theme = {
     backgroundTab: colors.white,
     buttonText: colors.white,
     backgroundButton: colors.black,
+    backgroundGlass: colors.white,
+    colorWater: colors.water,
   },
   dark: {
     primary: colors['dark-blue'],
@@ -27,6 +30,8 @@ const theme: Theme = {
     backgroundTab: colors.black,
     buttonText: colors.black,
     backgroundButton: colors.white,
+    backgroundGlass: colors.black,
+    colorWater: colors.water,
   },
 };
 

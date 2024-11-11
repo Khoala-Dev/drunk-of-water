@@ -9,6 +9,8 @@ export interface ThemeColors {
   backgroundTab: ColorValue;
   buttonText: ColorValue;
   backgroundButton: ColorValue;
+  backgroundGlass: ColorValue,
+  colorWater: ColorValue;
 }
 
 export interface Theme {
