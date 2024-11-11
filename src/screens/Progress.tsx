@@ -17,6 +17,7 @@ const Progress = (): React.JSX.Element => {
   } = styles(theme);
 
   const [consumption, setConsumption] = useState(0);
+  const defaultConsumption = 250;
 
   const readConsumptionFromStorage = async () => {
     const storedTarget = await getConsumption();
@@ -24,7 +25,7 @@ const Progress = (): React.JSX.Element => {
   };
 
   const writeConsumptionToStorage = async () => {
-    const newConsumption = {consumption: consumption + 250};
+    const newConsumption = {consumption: consumption + defaultConsumption};
     await storeConsumptiom(newConsumption);
     setConsumption(newConsumption.consumption);
   };
