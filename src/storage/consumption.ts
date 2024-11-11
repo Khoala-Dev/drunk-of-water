@@ -7,11 +7,18 @@ export type ConsumptionType = {
 const storeConsumptiom = async (value: ConsumptionType) => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('my-consumption', jsonValue);
+      const currentData = await AsyncStorage.getItem('my-consumption')
+      if (currentData != null) {
+        await AsyncStorage.mergeItem('my-consumption', jsonValue);
+      } else {
+        await AsyncStorage.setItem('my-consumption', jsonValue);
+      }
     } catch (e) {
       // saving error
     }
 };
+
+
 
 const getConsumption = async () => {
     try {
