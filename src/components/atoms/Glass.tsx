@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import useTheme from '../../hooks/useTheme';
 import { ThemeColors } from '../../types';
-import { getTarget } from '../../storage/target';
-import { getConsumption } from '../../storage/consumption';
 
-const Glass = () => {
+type GlassProps = {
+    glassHeight: number,
+    waterHeight: number
+}
+
+const Glass = ({glassHeight, waterHeight}: GlassProps) => {
   const { theme } = useTheme();
   const { glass, water } = styles(theme);
-
-  const [waterHeight, setWaterHeight] = useState(0);
-  const glassHeight = 300;
-
-  useEffect(() => {
-    const defineWaterHeight = async () => {
-        const storedTarget = await getTarget();
-        const storedConsumption = await getConsumption();
-        const waterHeightCalc = (storedConsumption.consumption * glassHeight) / storedTarget.target;
-        setWaterHeight(waterHeightCalc);
-      };
-
-    defineWaterHeight();
-  }, []);
 
   return (
     <View style={[glass, { height: glassHeight}]}>
