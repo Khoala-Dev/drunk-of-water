@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type ConsumptionType = {
-    consumption: number
+  [key: string]: number
 }
 
 const storeConsumptiom = async (value: ConsumptionType) => {

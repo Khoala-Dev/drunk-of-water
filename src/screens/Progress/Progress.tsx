@@ -9,6 +9,7 @@ import { ThemeColors } from '../../types';
 import Glass from '../../components/atoms/Glass';
 import { getConsumption, storeConsumptiom } from '../../storage/consumption';
 import { getWaterHeight } from './helpers/getWaterHeight';
+import getToday from './helpers/getToday';
 
 const Progress = (): React.JSX.Element => {
   const { theme } = useTheme();
@@ -23,33 +24,34 @@ const Progress = (): React.JSX.Element => {
   const glassHeight = 300;
   const defaultConsumption = 250;
 
-  const readConsumptionFromStorage = async () => {
-    const storedTarget = await getConsumption();
-    setConsumption(storedTarget.consumption);
-  };
+  const today = getToday();
 
   const writeConsumptionToStorage = async () => {
-    const newConsumption = {consumption: consumption + defaultConsumption};
+    const newConsumption = {[today]: consumption + defaultConsumption};
     await storeConsumptiom(newConsumption);
-    setConsumption(newConsumption.consumption);
-    defineWaterHeight();
+    updateWaterHeight();
+    setConsumption(newConsumption[today]);
   };
 
   const zeroConsumptionToStorage = async () => {
-    await storeConsumptiom({consumption: 0});
+    await storeConsumptiom({[today]: 0});
+    updateWaterHeight();
     setConsumption(0);
-    defineWaterHeight();
   };
 
-  const defineWaterHeight = async () => {
-    const gettedWaterHeight = await getWaterHeight(glassHeight);
-    setWaterHeight(gettedWaterHeight);
-  };
+  const updateWaterHeight = async () => {
+    const newWaterHeight = await getWaterHeight(glassHeight);
+    setWaterHeight(newWaterHeight);
+  }
 
   useEffect(() => {
+    const readConsumptionFromStorage = async () => {
+      const storedConsumption = await getConsumption();
+      setConsumption(storedConsumption[today]);
+    };
+
     readConsumptionFromStorage();
-    defineWaterHeight();
-  }, []);
+  }, [today]);
 
   return (
     <SafeAreaView style={[container ]}>
