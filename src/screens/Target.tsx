@@ -7,7 +7,6 @@ import { ios } from '../utils/os';
 import Button from '../components/atoms/Button';
 import useTheme from '../hooks/useTheme';
 import { getTarget, storeTarget } from '../storage/target';
-import type { TargetType } from '../storage/target';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
   const { theme } = useTheme();
@@ -27,9 +26,9 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
     setTarget(storedTarget.target);
   };
 
-  const writeTargetToStorage = async (newTarget: TargetType) => {
-    await storeTarget(newTarget);
-    setTarget(newTarget.target);
+  const writeTargetToStorage = async () => {
+    await storeTarget({target: target});
+    await navigation.navigate('Progress');
   };
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
             accessibilityLabel={accessibleText.target.input}
             style={input}
             placeholder="Digite sua meta em ML"
-            onChangeText={newText => writeTargetToStorage({target: newText})}
+            onChangeText={newTarget => setTarget(newTarget)}
             defaultValue={target}
             keyboardType="numeric"
           />
@@ -53,7 +52,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
         </View>
         <Button
           accessibilityText={accessibleText.target.pressableLabel}
-          onPress={() => navigation.navigate('Progress')}
+          onPress={() => writeTargetToStorage()}
           label="Começar"
           disabled={target.length < 3}
         />
