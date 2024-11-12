@@ -8,7 +8,7 @@ const storeConsumptiom = async (value: ConsumptionType) => {
     try {
       const jsonValue = JSON.stringify(value);
       const currentData = await AsyncStorage.getItem('my-consumption')
-      if (currentData != null) {
+      if (currentData !== null) {
         await AsyncStorage.mergeItem('my-consumption', jsonValue);
       } else {
         await AsyncStorage.setItem('my-consumption', jsonValue);
@@ -23,7 +23,7 @@ const storeConsumptiom = async (value: ConsumptionType) => {
 const getConsumption = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('my-consumption');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      return jsonValue !== null ? JSON.parse(jsonValue) : null;
     } catch (e) {
       console.error(e);
     }
