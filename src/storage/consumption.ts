@@ -14,7 +14,7 @@ const storeConsumptiom = async (value: ConsumptionType) => {
         await AsyncStorage.setItem('my-consumption', jsonValue);
       }
     } catch (e) {
-      // saving error
+      console.error(e);
     }
 };
 
@@ -25,7 +25,7 @@ const getConsumption = async () => {
       const jsonValue = await AsyncStorage.getItem('my-consumption');
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
-      // error reading value
+      console.error(e);
     }
 };
 

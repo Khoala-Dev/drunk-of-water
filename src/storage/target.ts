@@ -9,7 +9,7 @@ const storeTarget = async (value: TargetType) => {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('my-target', jsonValue);
     } catch (e) {
-      // saving error
+      console.error(e);
     }
 };
 
@@ -18,7 +18,7 @@ const getTarget = async () => {
       const jsonValue = await AsyncStorage.getItem('my-target');
       return jsonValue != null ? JSON.parse(jsonValue) : null;
     } catch (e) {
-      // error reading value
+        console.error(e);
     }
 };
 
