@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationProps, ThemeColors } from '../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
@@ -6,6 +6,7 @@ import accessibleText from '../accessibility/texts';
 import { ios } from '../utils/os';
 import Button from '../components/atoms/Button';
 import useTheme from '../hooks/useTheme';
+import { getTarget, storeTarget } from '../storage/target';
 
 const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
   const { theme } = useTheme();
@@ -20,6 +21,20 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
 
   const [target, setTarget] = useState('');
 
+  const readTargetFromStorage = async () => {
+    const storedTarget = await getTarget();
+    setTarget(storedTarget.target);
+  };
+
+  const writeTargetToStorage = async () => {
+    await storeTarget({target: target});
+    await navigation.navigate('Progress');
+  };
+
+  useEffect(() => {
+    readTargetFromStorage();
+  }, []);
+
   return (
     <SafeAreaView style={container}>
       <View style={generalView}>
@@ -29,7 +44,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
             accessibilityLabel={accessibleText.target.input}
             style={input}
             placeholder="Digite sua meta em ML"
-            onChangeText={newText => setTarget(newText)}
+            onChangeText={newTarget => setTarget(newTarget)}
             defaultValue={target}
             keyboardType="numeric"
           />
@@ -37,7 +52,7 @@ const Target = ({ navigation }: NavigationProps): React.JSX.Element => {
         </View>
         <Button
           accessibilityText={accessibleText.target.pressableLabel}
-          onPress={() => navigation.navigate('Progress')}
+          onPress={() => writeTargetToStorage()}
           label="Começar"
           disabled={target.length < 3}
         />
